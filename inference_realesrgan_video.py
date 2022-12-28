@@ -149,7 +149,9 @@ class Writer:
                                  audio,
                                  video_save_path,
                                  pix_fmt='yuv420p',
-                                 vcodec='libx264',
+                                 vcodec='libx265',
+                                 crf='12',
+                                 preset='veryslow',
                                  loglevel='error',
                                  acodec='copy').overwrite_output().run_async(
                                      pipe_stdin=True, pipe_stdout=True, cmd=args.ffmpeg_bin))
@@ -157,7 +159,7 @@ class Writer:
             self.stream_writer = (
                 ffmpeg.input('pipe:', format='rawvideo', pix_fmt='bgr24', s=f'{out_width}x{out_height}',
                              framerate=fps).output(
-                                 video_save_path, pix_fmt='yuv420p', vcodec='libx264',
+                                 video_save_path, pix_fmt='yuv420p', vcodec='libx264', crf='12', preset='veryslow',
                                  loglevel='error').overwrite_output().run_async(
                                      pipe_stdin=True, pipe_stdout=True, cmd=args.ffmpeg_bin))
 
